@@ -1,0 +1,70 @@
+1. Carefully observe this example.
+a) Is the InnerFunction() a closure?
+b) What is output of this program
+function OuterFunction() { 
+   var outerVariable = 100;
+   function InnerFunction() {
+      alert(outerVariable);
+   }
+   return InnerFunction;
+}
+var innerFunc = OuterFunction();
+innerFunc();
+
+a) Yes, InnerFunction() is a closure. A closure is created when an inner function (InnerFunction()) has access to variables from its outer enclosing function (OuterFunction()) even after the outer function has finished executing. 
+In above example, InnerFunction() has access to the outerVariable from OuterFunction(), forming a closure.
+
+b) The output of the above program will be an alert dialog displaying the value "100".
+Explanation
+The OuterFunction() is defined, which declares a variable outerVariable and defines the InnerFunction() nested inside it.
+The OuterFunction() returns the InnerFunction itself without executing it.
+The returned InnerFunction is assigned to the variable innerFunc.
+When innerFunc() is invoked the innerFunc(), it executes the code inside InnerFunction().
+Inside InnerFunction(), the outerVariable is accessed and displayed using the alert() function, which shows the value 100.
+So, running this program will result in an alert dialog displaying the value 100.
+
+2. What is the difference between a closure and a scope ?
+A closure and a scope are related concepts in JavaScript, but they refer to different aspects of how variables are accessed and stored.
+
+Scope:
+Scope refers to the visibility and accessibility of variables, functions, and objects in a particular part of the code during runtime. It determines where variables and functions are defined and where they can be accessed. JavaScript has function scope and block scope.
+
+Function Scope: Variables declared within a function are only accessible within that function and any nested functions.
+Block Scope: Variables declared with let or const within a block (Ex: within {} in loops or conditionals) are only accessible within that block.
+
+Scopes help in organizing and managing the visibility and lifetime of variables within a program.
+
+Closure:
+A closure is a combination of a function and the lexical environment within which that function was declared. It allows a function to retain access to variables from its parent scope even after the parent function has finished executing. In simpler terms, a closure is a function bundled together with its surrounding state (variables, functions, etc.).
+
+Closures are created when an inner function references variables from its outer enclosing function. The inner function "closes over" the variables it references, capturing their values at the time of creation. It allows the inner function to access and manipulate those variables even when it is invoked outside the scope of the outer function.
+
+Closures are commonly used to create private variables and data encapsulation in JavaScript.
+
+In summary, scope defines the visibility and accessibility of variables within a specific part of the code, while a closure is a mechanism that allows a function to access variables from its parent scope even after the parent function has completed execution.
+
+3. What is a lexical scope and how is it related to closure?
+Lexical scope, also known as static scope, is a concept in programming languages that determines the visibility and accessibility of variables based on the structure of the code at the time of compilation or parsing. It is determined by the physical placement of variables and functions in the source code.
+
+In JavaScript, lexical scope means that the scope of a variable is determined by its location in the source code when the code is defined, not when it is executed. It is based on how the functions and blocks are nested within each other.
+
+A key aspect of lexical scope is that inner functions have access to variables and functions defined in their outer or parent functions. This is where the concept of closure comes into play.
+
+Closure is a combination of a function and its surrounding state or lexical environment. When an inner function references variables from its outer function, it creates a closure. The closure allows the inner function to access and retain access to those variables, even after the outer function has finished executing.
+
+The relationship between lexical scope and closure is that closures are created as a result of the lexical scope. The lexical scope determines the availability of variables to an inner function, and when the inner function creates a closure by referencing those variables, it effectively "closes over" them, capturing their values and allowing them to persist even when the outer function has completed execution.
+
+In summary, lexical scope refers to the scope of variables based on their physical placement in the code, and closures are created when inner functions retain access to variables from their outer scope, forming a bundle of function and its captured environment. Lexical scope enables the creation of closures in JavaScript.
+
+4. Output of following closure ?
+for (var i = 0; i < 3; i++) {
+   setTimeout(function log() {
+      console.log(i); // What is logged?
+   }, 1000);
+}
+
+The output of the given code will be 3 printed three times with a delay of 1000 milliseconds (1 second) between each log.
+The reason why 3 is logged instead of the expected sequence 0, 1, 2 is due to the concept of closure and the behavior of variable scoping in JavaScript. Since JavaScript has function scope, and the variable i is captured by the anonymous function, by the time the anonymous functions are executed (after the loop has finished), the value of i is already 3 because that is the value it had when the loop terminated. Therefore, all the anonymous functions reference the same i variable, which results in 3 being logged in each iteration.
+
+To achieve the expected behavior of logging 0, 1, 2 using setTimeout, you can use an IIFE (Immediately Invoked Function Expression) to create a new scope for each iteration of the loop.
+
